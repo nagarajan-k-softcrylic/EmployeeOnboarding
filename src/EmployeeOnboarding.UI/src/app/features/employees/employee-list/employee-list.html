@@ -1,0 +1,62 @@
+<div class="header-row">
+  <h1>Employees</h1>
+  <button mat-flat-button color="primary" routerLink="/employees/create">
+    <mat-icon>person_add</mat-icon>
+    Add Employee
+  </button>
+</div>
+
+<mat-card>
+  <table mat-table [dataSource]="employees()" class="full-width">
+    <ng-container matColumnDef="employeeCode">
+      <th mat-header-cell *matHeaderCellDef>Code</th>
+      <td mat-cell *matCellDef="let e">{{ e.employeeCode }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let e">
+        <a [routerLink]="['/employees', e.id]">{{ e.name }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let e">{{ e.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <td mat-cell *matCellDef="let e">{{ e.department }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="designation">
+      <th mat-header-cell *matHeaderCellDef>Designation</th>
+      <td mat-cell *matCellDef="let e">{{ e.designation }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateOfJoining">
+      <th mat-header-cell *matHeaderCellDef>Date of Joining</th>
+      <td mat-cell *matCellDef="let e">{{ e.dateOfJoining | date: 'mediumDate' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let e">
+        <button mat-icon-button [routerLink]="['/employees', e.id, 'edit']" title="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(e)" title="Delete">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  @if (employees().length === 0) {
+    <p class="empty-state">No employees found.</p>
+  }
+</mat-card>

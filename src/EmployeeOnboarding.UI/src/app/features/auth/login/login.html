@@ -1,0 +1,39 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Employee Onboarding System</mat-card-title>
+      <mat-card-subtitle>Sign in to continue</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" autocomplete="username" />
+          @if (loginForm.controls.username.touched && loginForm.controls.username.invalid) {
+            <mat-error>Username is required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword() ? 'password' : 'text'" formControlName="password" autocomplete="current-password" />
+          <button mat-icon-button matSuffix type="button" (click)="hidePassword.set(!hidePassword())">
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+            <mat-error>Password is required</mat-error>
+          }
+        </mat-form-field>
+
+        @if (errorMessage()) {
+          <p class="error-text">{{ errorMessage() }}</p>
+        }
+
+        <button mat-flat-button color="primary" type="submit" class="full-width">Login</button>
+
+        <p class="hint">Demo credentials: hradmin / Password@123</p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

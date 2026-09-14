@@ -1,0 +1,35 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  .title {
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  .username {
+    margin-right: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+.sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+.sidenav {
+  width: 220px;
+
+  .active-link {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}
+
+.content {
+  padding: 24px;
+}

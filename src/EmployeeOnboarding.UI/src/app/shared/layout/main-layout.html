@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="title">Employee Onboarding System</span>
+  <span class="spacer"></span>
+  <span class="username" *ngIf="username">{{ username }}</span>
+  <button mat-icon-button (click)="logout()" aria-label="Logout" title="Logout">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+@if (loadingService.isLoading()) {
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+}
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/employees" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Employees</span>
+      </a>
+      <a mat-list-item routerLink="/employees/create" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>person_add</mat-icon>
+        <span matListItemTitle>Add Employee</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

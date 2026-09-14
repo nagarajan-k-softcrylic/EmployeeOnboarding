@@ -1,0 +1,66 @@
+<h1>{{ isEditMode() ? 'Edit Employee' : 'Add Employee' }}</h1>
+
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Employee Code</mat-label>
+      <input matInput formControlName="employeeCode" />
+      @if (form.controls.employeeCode.touched && form.controls.employeeCode.invalid) {
+        <mat-error>Employee code is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <mat-error>Name is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <mat-error>Valid email is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" />
+      @if (form.controls.phone.touched && form.controls.phone.invalid) {
+        <mat-error>Phone is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department" />
+      @if (form.controls.department.touched && form.controls.department.invalid) {
+        <mat-error>Department is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Designation</mat-label>
+      <input matInput formControlName="designation" />
+      @if (form.controls.designation.touched && form.controls.designation.invalid) {
+        <mat-error>Designation is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Date of Joining</mat-label>
+      <input matInput type="date" formControlName="dateOfJoining" />
+      @if (form.controls.dateOfJoining.touched && form.controls.dateOfJoining.invalid) {
+        <mat-error>Date of joining is required</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+      <button mat-flat-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+</mat-card>

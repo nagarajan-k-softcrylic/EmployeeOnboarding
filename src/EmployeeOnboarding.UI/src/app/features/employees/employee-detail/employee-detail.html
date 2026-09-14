@@ -1,0 +1,48 @@
+<div class="header-row">
+  <button mat-icon-button (click)="goBack()" title="Back">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h1>Employee Details</h1>
+  @if (employee()) {
+    <button mat-flat-button color="primary" [routerLink]="['/employees', employee()!.id, 'edit']">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+  }
+</div>
+
+@if (employee(); as e) {
+  <mat-card class="detail-card">
+    <div class="detail-grid">
+      <div><span class="label">Employee Code</span><span class="value">{{ e.employeeCode }}</span></div>
+      <div><span class="label">Name</span><span class="value">{{ e.name }}</span></div>
+      <div><span class="label">Email</span><span class="value">{{ e.email }}</span></div>
+      <div><span class="label">Phone</span><span class="value">{{ e.phone }}</span></div>
+      <div><span class="label">Department</span><span class="value">{{ e.department }}</span></div>
+      <div><span class="label">Designation</span><span class="value">{{ e.designation }}</span></div>
+      <div><span class="label">Date of Joining</span><span class="value">{{ e.dateOfJoining | date: 'mediumDate' }}</span></div>
+    </div>
+
+    <mat-card-actions>
+      <input #fileInput type="file" accept=".pdf,.doc,.docx" hidden (change)="onFileSelected($event)" />
+      <button mat-stroked-button [disabled]="uploading()" (click)="triggerUpload()">
+        <mat-icon>upload_file</mat-icon>
+        {{ e.resumeUrl ? 'Replace Resume' : 'Upload Resume' }}
+      </button>
+
+      @if (e.resumeUrl) {
+        <button mat-stroked-button (click)="downloadResume()">
+          <mat-icon>download</mat-icon>
+          Download Resume
+        </button>
+      }
+
+      @if (e.welcomeLetterUrl) {
+        <a mat-stroked-button [href]="e.welcomeLetterUrl" target="_blank">
+          <mat-icon>description</mat-icon>
+          View Welcome Letter
+        </a>
+      }
+    </mat-card-actions>
+  </mat-card>
+}

@@ -1,0 +1,16 @@
+.stat-cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1 1 200px;
+  text-align: center;
+  padding: 16px;
+}
+
+.chart-card {
+  max-width: 700px;
+}
