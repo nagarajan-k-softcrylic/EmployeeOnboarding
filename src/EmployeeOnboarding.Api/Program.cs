@@ -28,11 +28,15 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .Enrich.FromLogContext()
     .WriteTo.Console());
 
-// ---- Application Insights ----
-builder.Services.AddApplicationInsightsTelemetry(options =>
+// ---- Application Insights (only if a connection string is configured) ----
+var appInsightsConnectionString = builder.Configuration["ApplicationInsights:ConnectionString"];
+if (!string.IsNullOrWhiteSpace(appInsightsConnectionString))
 {
-    options.ConnectionString = builder.Configuration["ApplicationInsights:ConnectionString"];
-});
+    builder.Services.AddApplicationInsightsTelemetry(options =>
+    {
+        options.ConnectionString = appInsightsConnectionString;
+    });
+}
 
 // ---- Controllers, Swagger, Validation ----
 builder.Services.AddControllers();
