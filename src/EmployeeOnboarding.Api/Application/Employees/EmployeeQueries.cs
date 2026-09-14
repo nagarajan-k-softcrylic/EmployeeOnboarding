@@ -8,3 +8,5 @@ public record GetAllEmployeesQuery : IRequest<List<EmployeeResponse>>;
 public record GetEmployeeByIdQuery(int Id) : IRequest<EmployeeResponse?>;
 
 public record DownloadResumeQuery(int Id) : IRequest<(Stream Content, string ContentType, string FileName)?>;
+
+public record DownloadWelcomeLetterQuery(int Id) : IRequest<(Stream Content, string ContentType, string FileName)?>;

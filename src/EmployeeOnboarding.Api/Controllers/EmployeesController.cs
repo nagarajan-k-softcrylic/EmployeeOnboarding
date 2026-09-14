@@ -91,4 +91,16 @@ public class EmployeesController : ControllerBase
         var (content, contentType, fileName) = result.Value;
         return File(content, contentType, fileName);
     }
+
+    [HttpGet("download-welcome-letter/{id:int}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DownloadWelcomeLetter(int id, CancellationToken ct)
+    {
+        var result = await _mediator.Send(new DownloadWelcomeLetterQuery(id), ct);
+        if (result is null) return NotFound();
+
+        var (content, contentType, fileName) = result.Value;
+        return File(content, contentType, fileName);
+    }
 }

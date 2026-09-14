@@ -68,6 +68,14 @@ export class EmployeeDetail {
     });
   }
 
+  downloadWelcomeLetter(): void {
+    this.employeeService.downloadWelcomeLetter(this.employeeId).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      setTimeout(() => window.URL.revokeObjectURL(url), 60_000);
+    });
+  }
+
   goBack(): void {
     this.router.navigate(['/employees']);
   }

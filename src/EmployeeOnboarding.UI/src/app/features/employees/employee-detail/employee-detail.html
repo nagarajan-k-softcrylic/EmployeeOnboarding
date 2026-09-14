@@ -38,10 +38,10 @@
       }
 
       @if (e.welcomeLetterUrl) {
-        <a mat-stroked-button [href]="e.welcomeLetterUrl" target="_blank">
+        <button mat-stroked-button (click)="downloadWelcomeLetter()">
           <mat-icon>description</mat-icon>
           View Welcome Letter
-        </a>
+        </button>
       }
     </mat-card-actions>
   </mat-card>

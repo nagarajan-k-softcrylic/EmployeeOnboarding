@@ -39,4 +39,8 @@ export class EmployeeService {
   downloadResume(id: number): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/download-resume/${id}`, { responseType: 'blob' });
   }
+
+  downloadWelcomeLetter(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/download-welcome-letter/${id}`, { responseType: 'blob' });
+  }
 }

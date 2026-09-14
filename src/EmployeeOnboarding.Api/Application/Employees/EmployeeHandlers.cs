@@ -184,3 +184,28 @@ public class DownloadResumeHandler : IRequestHandler<DownloadResumeQuery, (Strea
         return (content, contentType, fileName);
     }
 }
+
+public class DownloadWelcomeLetterHandler : IRequestHandler<DownloadWelcomeLetterQuery, (Stream Content, string ContentType, string FileName)?>
+{
+    private readonly IUnitOfWork _uow;
+    private readonly IBlobStorageService _blobStorageService;
+    private const string ContainerName = "welcome-letters";
+
+    public DownloadWelcomeLetterHandler(IUnitOfWork uow, IBlobStorageService blobStorageService)
+    {
+        _uow = uow;
+        _blobStorageService = blobStorageService;
+    }
+
+    public async Task<(Stream Content, string ContentType, string FileName)?> Handle(DownloadWelcomeLetterQuery request, CancellationToken ct)
+    {
+        var employee = await _uow.Employees.GetByIdAsync(request.Id, ct);
+        if (employee is null || string.IsNullOrEmpty(employee.WelcomeLetterUrl)) return null;
+
+        var fileName = employee.WelcomeLetterUrl.Split('/').Last();
+        var blobName = $"{employee.EmployeeCode}/{fileName}";
+        var (content, contentType) = await _blobStorageService.DownloadFileAsync(ContainerName, blobName, ct);
+
+        return (content, contentType, fileName);
+    }
+}
