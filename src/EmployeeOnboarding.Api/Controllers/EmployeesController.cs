@@ -67,7 +67,7 @@ public class EmployeesController : ControllerBase
     [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [RequestSizeLimit(10_000_000)]
-    public async Task<IActionResult> UploadResume([FromForm] int employeeId, [FromForm] IFormFile file, CancellationToken ct)
+    public async Task<IActionResult> UploadResume([FromForm] int employeeId, IFormFile file, CancellationToken ct)
     {
         if (file is null || file.Length == 0)
         {
