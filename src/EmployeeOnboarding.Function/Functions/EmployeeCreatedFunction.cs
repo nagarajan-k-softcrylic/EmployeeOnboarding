@@ -31,7 +31,7 @@ public class EmployeeCreatedFunction
 
     [Function("EmployeeCreatedFunction")]
     public async Task Run(
-        [ServiceBusTrigger("employee-created", Connection = "ServiceBusConnectionString")] string messageBody,
+        [ServiceBusTrigger("employee-onboarding-queue", Connection = "ServiceBusConnectionString")] string messageBody,
         FunctionContext context)
     {
         var startedAt = DateTime.UtcNow;
@@ -39,7 +39,7 @@ public class EmployeeCreatedFunction
 
         try
         {
-            // 1. Receive employee-created message
+            // 1. Receive employee-onboarding-queue message
             var employee = JsonSerializer.Deserialize<EmployeeCreatedMessage>(messageBody)
                 ?? throw new InvalidOperationException("Unable to deserialize EmployeeCreatedMessage.");
 

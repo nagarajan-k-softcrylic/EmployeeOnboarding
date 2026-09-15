@@ -7,7 +7,7 @@ namespace EmployeeOnboarding.Api.Infrastructure.Messaging;
 
 public class ServiceBusEmployeeEventPublisher : IEmployeeEventPublisher, IAsyncDisposable
 {
-    private const string QueueName = "employee-created";
+    private const string QueueName = "employee-onboarding-queue";
     private readonly ServiceBusClient _client;
     private readonly ServiceBusSender _sender;
     private readonly ILogger<ServiceBusEmployeeEventPublisher> _logger;
@@ -44,7 +44,9 @@ public class ServiceBusEmployeeEventPublisher : IEmployeeEventPublisher, IAsyncD
 
     public async ValueTask DisposeAsync()
     {
+        // Only dispose the sender created by this (scoped) instance.
+        // _client is the app-wide Singleton ServiceBusClient and must NOT be disposed here,
+        // otherwise it gets closed after the first request and breaks all subsequent publishes.
         await _sender.DisposeAsync();
-        await _client.DisposeAsync();
     }
 }
