@@ -85,7 +85,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp", policy =>
         policy.WithOrigins(
                   "http://localhost:4200",
-                  "https://agreeable-pebble-099d4bb0f4.azurestaticapps.net")
+                  "https://agreeable-pebble-099d4bb0f.4.azurestaticapps.net")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });
