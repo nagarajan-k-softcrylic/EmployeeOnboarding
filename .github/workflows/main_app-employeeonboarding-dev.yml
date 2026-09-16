@@ -5,8 +5,9 @@ name: Build and deploy ASP.Net Core app to Azure Web App - app-employeeonboardin
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+    paths:
+      - 'src/EmployeeOnboarding.Api/**'
   workflow_dispatch:
 
 jobs:
@@ -24,10 +25,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build src/EmployeeOnboarding.Api/EmployeeOnboarding.Api.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish src/EmployeeOnboarding.Api/EmployeeOnboarding.Api.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
